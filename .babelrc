@@ -1,0 +1,29 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "12"
+        }
+      }
+    ],
+    ["@babel/preset-typescript"]
+  ],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": [
+          "./src"
+        ],
+        "alias": {
+          "@App": ["./app"],
+          "@Libs": ["./libs"],
+          "@Services": ["./services"],
+          "@BootStrapServer": ["./bootstrap-server"]
+        }
+      }
+    ]
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "preserveConstEnums": true,
+    "strictNullChecks": true,
+    "inlineSources": true,
+    "inlineSourceMap": true,
+    "target": "es2017",
+    "outDir": ".build",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "typeRoots": [
+      "index.d.ts",
+    ],
+    "checkJs": false,
+    "esModuleInterop": true,
+    "lib": [
+      "es2017",
+      "es2017.object",
+      "dom"
+    ],
+    "sourceRoot": "/",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["src/*.d.ts"],
+      "@App": ["app"],
+      "@App/*": ["app/*"],
+      "@Libs": ["libs"],
+      "@Libs/*": ["libs/*"],
+      "@Services": ["services"],
+      "@Services/*": ["services/*"],
+      "@BootStrapServer": ["bootstrap-server"]
+    },
+    "resolveJsonModule": true
+  },
+}

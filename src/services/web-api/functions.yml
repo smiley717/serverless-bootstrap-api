@@ -1,0 +1,13 @@
+WebApi:
+  handler: src/services/web-api/lambda.handler
+  memorySize: 256
+  timeout: 30
+  environment:
+    STAGE: ${self:provider.stage}
+    ROARR_LOG: false
+
+  events:
+    - http:
+        cors: true
+        path: /web-api/{proxy+}
+        method: any

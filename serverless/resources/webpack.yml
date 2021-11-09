@@ -1,0 +1,9 @@
+webpackConfig: 'webpack.config.js'
+packager: 'yarn'
+excludeFiles: src/**/*.test.ts
+includeModules:
+  forceExclude:
+    - aws-sdk
+packagerOptions:
+  scripts:
+    - yarn autoclean --force

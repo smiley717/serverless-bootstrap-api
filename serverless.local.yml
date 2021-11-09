@@ -1,0 +1,57 @@
+service: raredex-backend-api
+useDotenv: true
+
+# Create an optimized package for our functions
+package:
+  individually: true
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack # Package our functions with Webpack
+  - serverless-offline # Local APIGateway emulation
+  - serverless-dotenv-plugin # Load .env as environment variables
+  - serverless-dynamodb-local
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  role: GlobalLambdaRole
+  memorySize: 256
+
+  logs:
+    restApi: true
+
+  tracing:
+    apiGateway: true
+    lambda: true
+
+  resourcePolicy:
+    - Effect: Allow
+      Principal: '*'
+      Action: execute-api:Invoke
+      Resource:
+        - execute-api:/*/*/*
+
+custom:
+  serviceEnv: ${self:service}-${self:provider.stage}
+  dynamodb:
+    start:
+      migrate: true
+    stages:
+      - dev
+
+  serverless-offline:
+    lambdaPort: 5002
+    httpPort: ${env:API_PORT}
+
+  # Plugins
+  webpack: ${file(serverless/resources/webpack.yml)}
+
+functions:
+  - ${file(src/services/web-api/functions.yml)}
+
+resources:
+  - ${file(serverless/resources/global-role.yml)}
+  - ${file(src/services/web-api/collections.yml)}

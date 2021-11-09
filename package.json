@@ -1,0 +1,51 @@
+{
+  "name": "payment-service",
+  "version": "0.1.0",
+  "description": "Serverless for Payment",
+  "main": "handler.js",
+  "scripts": {
+    "local": "./node_modules/.bin/serverless offline",
+    "deploy": "./node_modules/.bin/serverless deploy -v",
+    "build": "./node_modules/.bin/serverless package",
+    "build:staging": "./node_modules/.bin/serverless package --stage staging",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "./scripts/debug.sh"
+  },
+  "author": "Arsen Ghazaryan",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/aws-lambda": "^8.10.67",
+    "@types/express": "^4.17.1",
+    "@types/uuid": "^8.3.0",
+    "aws-sdk": "^2.815.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "cache-loader": "^4.1.0",
+    "eslint-import-resolver-babel-module": "^5.3.1",
+    "eslint-plugin-import": "^2.25.2",
+    "fork-ts-checker-webpack-plugin": "^5.0.12",
+    "serverless": "^2.16.1",
+    "serverless-dotenv-plugin": "^3.9.0",
+    "serverless-dynamodb-local": "^0.2.40",
+    "serverless-offline": "^6.5.0",
+    "serverless-prune-plugin": "^1.6.1",
+    "serverless-webpack": "^5.3.5",
+    "tsconfig-paths-webpack-plugin": "^3.5.1",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-node-externals": "^2.5.0"
+  },
+  "dependencies": {
+    "@hapi/boom": "8.0.1",
+    "aws-xray-sdk": "^3.3.3",
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "express-session": "^1.17.2",
+    "moment": "2.24.0",
+    "serverless-http": "2.3.0",
+    "uuid": "^8.0.0"
+  }
+}

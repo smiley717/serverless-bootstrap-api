@@ -1,0 +1,18 @@
+Resources:
+    # Table for storing events from Plaid's Link widget
+    RaredexTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: NFT-${self:provider.stage}-Collections
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 10
+          WriteCapacityUnits: 10
+        TimeToLiveSpecification:
+          AttributeName: ttl
+          Enabled: true

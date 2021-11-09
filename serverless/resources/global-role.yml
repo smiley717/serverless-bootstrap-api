@@ -1,0 +1,53 @@
+Resources:
+  GlobalLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: ${self:custom.serviceEnv}-GlobalLambdaRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: ${self:custom.serviceEnv}-GlobalDefaultPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - "Fn::Join":
+                      - ":"
+                      - - "arn:aws:logs"
+                        - Ref: "AWS::Region"
+                        - Ref: "AWS::AccountId"
+                        - "log-group:/aws/lambda/*:*:*"
+
+              - Effect: Allow
+                Action:
+                  - "lambda:InvokeFunction"
+                Resource: "arn:aws:lambda:*:*:function:*${self:provider.stage}*"
+
+              - Effect: Allow
+                Action:
+                  - xray:PutTraceSegments
+                  - xray:PutTelemetryRecords
+                Resource: "*"
+
+              - Effect: Allow
+                Action:
+                  - dynamodb:DescribeTable
+                  - dynamodb:Query
+                  - dynamodb:Scan
+                  - dynamodb:GetItem
+                  - dynamodb:PutItem
+                  - dynamodb:UpdateItem
+                  - dynamodb:DeleteItem
+                Resource:
+                  Fn::GetAtt: [ RaredexTable, Arn ]
